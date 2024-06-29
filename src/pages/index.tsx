@@ -4,8 +4,9 @@ import { motion } from "framer-motion";
 import { useEffect, useState, ReactNode } from "react";
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
-import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
+import { ArrayCSSInterpolation } from "@emotion/css";
+import Link from "next/link";
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -59,15 +60,61 @@ const Home = () => {
 
   return (
     <div css={containerStyle}>
-      <Navbar>
-        <Section>
+      <Section>
+        <motion.div
+          css={boxStyle}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}>
+          <h1 css={textStyle}>Personalized product service</h1>
+        </motion.div>
+      </Section>
+
+      <InfoSection>
+        <div css={textContainerStyle}>
+          <h2 css={mainTextStyle}>
+            나에게 어울리는 물건을 찾을 수 있는 공간,
+            <span css={highlightTextStyle}> ISEUNGCHANG</span>
+          </h2>
+          <p css={descriptionStyle}>
+            ISEUNGCHANG은 재학생들의 의견을 모아 분석하고, <br></br>이를
+            바탕으로 고도화된 탐색 알고리즘을 사용하여 여러분에게 가장 필요한
+            물건을 추천해드립니다.
+          </p>
+        </div>
+        <div css={imageContainerStyle}>
+          <img
+            src="/images/data_science.jpg"
+            alt="데이터 분석"
+            css={imageStyle}
+          />
+        </div>
+      </InfoSection>
+
+      <CardSection>
+        {cards.map((card, index) => (
           <motion.div
+
             css={boxStyle}
             initial={{ opacity: 0, y: "3.125em" }}
+
+            css={cardStyle(card.bgColor)}
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}>
-            <h1 css={textStyle}>Personalized product service</h1>
+            <div css={cardContentStyle}>
+              <h3 css={cardTitleStyle}>
+                {card.title}{" "}
+                <span css={highlightCardStyle}>{card.highlight}</span>
+              </h3>
+              <button css={buttonStyle(card.bgColor)}>웹사이트 바로가기</button>
+              <img src={card.img} alt={card.name} css={cardImageStyle} />
+              <p css={cardNameStyle(card.textColor)}>{card.name}</p>
+            </div>
           </motion.div>
+
         </Section>
 
         <InfoSection>
@@ -107,52 +154,51 @@ const Home = () => {
                 <button css={buttonStyle(card.bgColor)}>웹사이트 바로가기</button>
                 <img src={card.img} alt={card.name} css={cardImageStyle} />
                 <p css={cardNameStyle(card.textColor)}>{card.name}</p>
-              </div>
-            </motion.div>
-          ))}
-        </CardSection>
+        ))}
+      </CardSection>
 
-        <ProductPreviewSection>
-          <h2 css={productTitleStyle}>상품 미리 보기</h2>
-          <div css={whiteBoxStyle}>
-            <div css={contentContainerStyle}>
-              <div css={centerContainerStyle}>
-                <div css={imageContainerStyle}>
-                  <Image
-                    src="/images/canon.jpg"
-                    alt="Product 1"
-                    css={productImageStyle}
-                    width={150}
-                    height={150}
-                  />
-                  <Image
-                    src="/images/monitor.jpg"
-                    alt="Product 2"
-                    css={productImageStyle}
-                    width={150}
-                    height={150}
-                  />
-                  <Image
-                    src="/images/tablet.jpg"
-                    alt="Product 3"
-                    css={productImageStyle}
-                    width={150}
-                    height={150}
-                  />
-                </div>
-                <div css={moreProductsContainerStyle}>
-                  <a href="https://example.com" css={moreProductsLinkStyle}>
-                    상품 더 보기
-                  </a>
+      <ProductPreviewSection>
+        <h2 css={productTitleStyle}>상품 미리 보기</h2>
+        <div css={whiteBoxStyle}>
+          <div css={contentContainerStyle}>
+            <div css={centerContainerStyle}>
+              <div css={imageContainerStyle}>
+                <Image
+                  src="/images/canon.jpg"
+                  alt="Product 1"
+                  css={productImageStyle}
+                  width={150}
+                  height={150}
+                />
+                <Image
+                  src="/images/monitor.jpg"
+                  alt="Product 2"
+                  css={productImageStyle}
+                  width={150}
+                  height={150}
+                />
+                <Image
+                  src="/images/tablet.jpg"
+                  alt="Product 3"
+                  css={productImageStyle}
+                  width={150}
+                  height={150}
+                />
+
+              </div>
+              <div css={moreProductsContainerStyle}>
+                <Link href="/main" css={moreProductsLinkStyle}>
+                  상품 더 보기
                   <div css={arrowCircleStyle}>
                     <FaArrowRight css={arrowIconStyle} />
                   </div>
-                </div>
+                </Link>
               </div>
             </div>
           </div>
-        </ProductPreviewSection>
-      </Navbar>
+        </div>
+      </ProductPreviewSection>
+
       <Footer />
     </div>
   );

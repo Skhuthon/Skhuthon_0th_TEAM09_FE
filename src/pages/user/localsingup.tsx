@@ -23,11 +23,11 @@ export default function signup() {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3000/api/signup", {
-        email,
-        password,
-        nickname,
-      });
+      const response = await axios.post("http://localhost:8080/api/v1/user/signup", {
+        "email":email,
+        "password": password,
+        "nickname": nickname
+    });
       setSuccessMessage("회원가입에 성공했습니다!");
       setErrorMessage("");
     } catch (error) {

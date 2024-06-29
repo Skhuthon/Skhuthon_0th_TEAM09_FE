@@ -1,17 +1,24 @@
-import React from "react";
+import React,{useState} from "react";
 import { css } from "@emotion/css";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:3000/api/login", {
-        username: "admin",
-        password: "admin",
-      });
+      const res = await axios.post("http://localhost:8080/api/v1/user/login", {
+        email: email,
+        password: password,
+    });
       console.log(res.data);
+      localStorage.setItem("accessToken", res.data.accessToken);
+localStorage.setItem("refreshToken", res.data.refreshToken);
+router.push("/main");
     } catch (error) {
       console.error("로그인 중 오류 발생:", error);
     }
@@ -21,8 +28,9 @@ export default function Login() {
     <div className={container}>
       <div className="wallpaper">
         <h1>ISEUNGCHANG</h1>
-        <input type="text" placeholder="이메일" />
-        <input type="password" placeholder="비밀번호" />
+        <input type="text" placeholder="이메일" onChange={(e) => setEmail(e.target.value)}/>
+        <input type="password" placeholder="비밀번호" onChange={(e) => setPassword(e.target.value)}
+        />
         <label className={checkboxLabel}>
           <input type="checkbox" id="remember" />
           간편 로그인 정보 저장

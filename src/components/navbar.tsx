@@ -1,28 +1,48 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React, { ReactNode, FC } from "react";
+import React, { ReactNode,useEffect, FC ,useState} from "react";
 import Link from "next/link";
+import { FaUserCircle } from "react-icons/fa";
+
 
 interface NavProps {
   children?: ReactNode;
 }
 
 const Navigation: FC<NavProps> = ({ children }) => {
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    setAccessToken(null); // accessToken을 초기화
+  };
+  const [accessToken, setAccessToken] = useState("");
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken") as string;
+    setAccessToken(accessToken);
+      }, []);
+
   return (
     <div css={nav_bodyStyles}>
       <nav css={nav_headerStyles}>
         <Link href="/" css={nav_logoStyles}>
           ISEUNGCHANG
         </Link>
-        <div css={nav_LinksStyles}>
-          <Link href="/user/login" css={nav_LinkStyles}>
-            로그인
-          </Link>
 
-          <span css={nav_separatorStyles}>|</span>
-          <Link href="/user/signup" css={nav_LinkStyles}>
-            회원가입
-          </Link>
+        
+        <div css={nav_LinksStyles}>
+        {accessToken ? <>
+        <div css={logout} onClick={handleLogout}><FaUserCircle css={iconStyle} /><span>이현우</span></div> </>
+ : (
+  <>
+    <Link href="/user/login" css={nav_LinkStyles}>
+      로그인
+    </Link>
+    <span css={nav_separatorStyles}>|</span>
+    <Link href="/user/signup" css={nav_LinkStyles}>
+      회원가입
+    </Link>
+  </>
+)}
         </div>
       </nav>
 
@@ -36,6 +56,7 @@ export default Navigation;
 const nav_bodyStyles = css`
   margin: 0;
   padding: 0;
+  height: 60px;
   overflow-x: hidden;
 `;
 
@@ -110,3 +131,15 @@ const nav_mainContentStyles = css`
     padding: 1rem;
   }
 `;
+const iconStyle = css`
+  font-size: 30px;
+  color: #dc3412;
+`;
+const logout =css`
+display :flex;
+gap:30px;
+justify-content: center;
+align-items: center;
+  
+
+`
