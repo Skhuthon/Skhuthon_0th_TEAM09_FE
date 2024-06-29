@@ -36,6 +36,7 @@ export default Navigation;
 const nav_bodyStyles = css`
   margin: 0;
   padding: 0;
+  height: 60px;
   overflow-x: hidden;
 `;
 
