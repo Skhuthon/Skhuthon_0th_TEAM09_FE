@@ -1,7 +1,7 @@
 import React from "react";
 import { css } from "@emotion/css";
 import Image from "next/image";
-
+import Category from "@/components/main/category";
 export default function Main() {
   return (
     <div className={container}>
@@ -14,15 +14,15 @@ export default function Main() {
           className={imageStyle}
         />
         <div className={overlay}>
-          <h1 className={overlayText}>제품소개</h1>
+          <h1 className={overlayText}>학부별 추천템</h1>
         </div>
       </div>
+      <Category />
     </div>
   );
 }
 
 const container = css`
-  display: flex;
   width: 100vw;
   height: 100vh;
   justify-content: center;
