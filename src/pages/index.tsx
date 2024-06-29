@@ -12,7 +12,7 @@ import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { ArrayCSSInterpolation } from "@emotion/css";
-
+import Link from "next/link";
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
@@ -146,12 +146,12 @@ const Home = () => {
                 />
               </div>
               <div css={moreProductsContainerStyle}>
-                <a href="https://example.com" css={moreProductsLinkStyle}>
+                <Link href="/main" css={moreProductsLinkStyle}>
                   상품 더 보기
-                </a>
-                <div css={arrowCircleStyle}>
-                  <FaArrowRight css={arrowIconStyle} />
-                </div>
+                  <div css={arrowCircleStyle}>
+                    <FaArrowRight css={arrowIconStyle} />
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

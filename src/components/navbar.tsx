@@ -14,6 +14,9 @@ const Navigation: FC<NavProps> = ({ children }) => {
         <Link href="/" css={nav_logoStyles}>
           ISEUNGCHANG
         </Link>
+        <Link href="/main" css={nav_logoStyles}>
+          서비스
+        </Link>
         <div css={nav_LinksStyles}>
           <Link href="/user/login" css={nav_LinkStyles}>
             로그인
