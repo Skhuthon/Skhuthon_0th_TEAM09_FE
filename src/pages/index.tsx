@@ -16,7 +16,7 @@ const cardStyle = css`
   background-color: #ffffff;
   width: 100%;
   max-width: 800px;
-  margin: 20px 0;
+  margin: 4em 0;
   padding: 0 0 20 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -32,7 +32,8 @@ const profileAndPriceStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 10px;
+  margin-top: 4vh;
+  padding: 0px 2.2rem;
 `;
 
 const profileStyle = css`
@@ -50,11 +51,13 @@ const profileIconStyle = css`
   justify-content: center;
   color: #fff;
   margin-right: 10px;
+  gap;0.5em;
 `;
 
 const tagStyle = css`
   display: flex;
   margin-top: 10px;
+  padding: 0 2em;
 `;
 
 const tagItemStyle = css`
@@ -71,6 +74,7 @@ const footerStyle = css`
   justify-content: space-between;
   align-items: center;
   margin-top: 20px;
+  margin-left: 1.5em;
 `;
 
 const commentSectionStyle = css`
@@ -101,10 +105,11 @@ const commentTextStyle = css`
 `;
 
 const imageStyle = css`
-  width: 100%;
-  height: auto;
+  width: 70%;
+  height: 45vh;
+  border: 1px solid lightgray;  
   border-radius: 10px;
-  margin: 20px 0;
+  margin: 0 auto;
 `;
 
 const iconButtonStyle = css`
@@ -124,6 +129,7 @@ const iconButtonStyle = css`
 const productInfoFlex = css`
   display: flex;
   justify-content: space-between;
+  margin-left:2.2rem
 `;
 
 const MyPage = () => {
@@ -147,7 +153,7 @@ const MyPage = () => {
         </div>
 
         <div css={imageStyle}>
-          <img src="path/to/image.jpg" alt="product" css={imageStyle} />
+          <img src="path/to/image.jpg" alt="product" />
         </div>
 
         <div css={profileAndPriceStyle}>
