@@ -2,20 +2,9 @@ import React from "react";
 import { css } from "@emotion/css";
 import axios from "axios";
 import Image from "next/image";
-import Link from "next/link";
 
-export default function Login() {
-  const handleLogin = async () => {
-    try {
-      const res = await axios.post("http://localhost:3000/api/login", {
-        username: "admin",
-        password: "admin",
-      });
-      console.log(res.data);
-    } catch (error) {
-      console.error("로그인 중 오류 발생:", error);
-    }
-  };
+export default function signup() {
+  const handleLogin = async () => {};
 
   return (
     <div className={container}>
@@ -23,38 +12,9 @@ export default function Login() {
         <h1>ISEUNGCHANG</h1>
         <input type="text" placeholder="이메일" />
         <input type="password" placeholder="비밀번호" />
-        <label className={checkboxLabel}>
-          <input type="checkbox" id="remember" />
-          간편 로그인 정보 저장
-        </label>
+        <input type="password" placeholder="비밀번호 확인" />
+        <input type="text" placeholder="닉네임" />
         <button onClick={handleLogin}>로그인</button>
-        <div className="or">
-          <hr className="or-hr" />
-          <p>소셜 로그인</p>
-          <hr className="or-hr" />
-        </div>
-        <div className={socialButtons}>
-          <a href="#">
-            <Image
-              src="/login/googlelogin.png"
-              width={50}
-              height={50}
-              alt="Google 로그인"
-            />
-          </a>
-          <a href="#">
-            <Image
-              src="/login/kakaologin.png"
-              width={50}
-              height={50}
-              alt="카카오 로그인"
-            />
-          </a>
-        </div>
-        <p>
-          아직 회원이 아니신가요?
-          <Link href="/user/signup">회원가입</Link>
-        </p>
       </div>
     </div>
   );
