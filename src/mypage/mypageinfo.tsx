@@ -33,7 +33,7 @@ export default function Profile() {
     }
   };
 
-  const handleNicknameChange = (e) => {
+  const handleNicknameChange = (e: { target: { value: React.SetStateAction<string>; }; }) => {
     setNickname(e.target.value);
   };
 
