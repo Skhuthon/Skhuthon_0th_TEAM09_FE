@@ -475,8 +475,8 @@ const productImageStyle = css`
   object-fit: cover;
 
   @media (max-width: 48em) {
-    width: 5.22em;
-    height: 6.25em;
+    width: 4.22em;
+    height: 5.25em;
   }
 `;
 
