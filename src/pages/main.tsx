@@ -88,7 +88,6 @@ export default function Main() {
           onCategorySelect={handleCategorySelect}
         />
       )}
-      {selectedCategory && <p>선택된 카테고리 ID: {selectedCategory}</p>}
       <Categorization
         categories={categorization}
         onSelectionChange={handleSelectionChange}
