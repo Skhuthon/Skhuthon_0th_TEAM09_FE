@@ -3,34 +3,23 @@ import { css } from "@emotion/css";
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-export default function Login() {
-  const handleLogin = async () => {
-    try {
-      const res = await axios.post("http://localhost:3000/api/login", {
-        username: "admin",
-        password: "admin",
-      });
-      console.log(res.data);
-    } catch (error) {
-      console.error("로그인 중 오류 발생:", error);
-    }
+export default function signup() {
+  const router = useRouter();
+
+  const handleEmailSignup = () => {
+    router.push("/user/localsingup");
   };
-
   return (
     <div className={container}>
       <div className="wallpaper">
         <h1>ISEUNGCHANG</h1>
-        <input type="text" placeholder="이메일" />
-        <input type="password" placeholder="비밀번호" />
-        <label className={checkboxLabel}>
-          <input type="checkbox" id="remember" />
-          간편 로그인 정보 저장
-        </label>
-        <button onClick={handleLogin}>로그인</button>
+        <p>회원가입하고 서비스 사용을 시작해보세요</p>
+        <button onClick={handleEmailSignup}>이메일 회원 가입</button>
         <div className="or">
           <hr className="or-hr" />
-          <p>소셜 로그인</p>
+          <p>소셜 회원가입</p>
           <hr className="or-hr" />
         </div>
         <div className={socialButtons}>
@@ -52,8 +41,8 @@ export default function Login() {
           </a>
         </div>
         <p>
-          아직 회원이 아니신가요?
-          <Link href="/user/signup">회원가입</Link>
+          이미 계정이 있으신가요?
+          <Link href="/user/login">로그인</Link>
         </p>
       </div>
     </div>
@@ -167,10 +156,6 @@ const container = css`
     color: #666;
     margin-top: 20px;
   }
-`;
-
-const checkboxLabel = css`
-  text-align: left;
 `;
 
 const socialButtons = css`
