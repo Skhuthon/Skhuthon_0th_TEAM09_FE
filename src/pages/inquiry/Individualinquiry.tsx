@@ -1,18 +1,24 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
+import { css, keyframes } from '@emotion/react';
 import { useState } from 'react';
-import { FaHeart, FaRegBookmark, FaEdit, FaTrash, FaUser } from 'react-icons/fa';
+import { FaHeart, FaRegBookmark, FaBookmark, FaEdit, FaTrash, FaUser } from 'react-icons/fa';
 
 const MyPage = () => {
   const [likes, setLikes] = useState(0);
-  const [bookmarks, setBookmarks] = useState(0);
+  const [liked, setLiked] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
 
   const handleLikeClick = () => {
-    setLikes(likes + 1);
+    if (liked) {
+      setLikes(likes - 1);
+    } else {
+      setLikes(likes + 1);
+    }
+    setLiked(!liked);
   };
 
   const handleBookmarkClick = () => {
-    setBookmarks(bookmarks + 1);
+    setBookmarked(!bookmarked);
   };
 
   return (
@@ -38,7 +44,7 @@ const MyPage = () => {
             </div>
             <span>user1</span>
           </div>
-          <div>1,100,000₩</div>
+          <div css={boldtxt}>1,100,000₩</div>
         </div>
 
         <div css={horizontalLineStyle}></div>
@@ -54,11 +60,11 @@ const MyPage = () => {
 
         <div css={footerStyle}>
           <div>
-            <button css={iconButtonStyle} onClick={handleLikeClick}>
-              <FaHeart /> {likes}
+            <button css={[iconButtonStyle, liked && heartAnimation]} onClick={handleLikeClick}>
+              <FaHeart css={liked && heartIconStyle} /> {likes}
             </button>
             <button css={iconButtonStyle} onClick={handleBookmarkClick}>
-              <FaRegBookmark /> {bookmarks}
+              {bookmarked ? <FaBookmark css={bookmarkIconStyle} /> : <FaRegBookmark />} {bookmarked ? '1' : '0'}
             </button>
           </div>
         </div>
@@ -73,6 +79,7 @@ const MyPage = () => {
             <span css={commentTextStyle}>M1 칩은 통합 메모리 아키텍처를 사용하여...</span>
           </div>
           <div css={commentStyle}>
+            <span css={commentUserStyle}>Ppueeng</span>
             <span css={commentTextStyle}>M1 칩을 탑재한 Mac은 빠르게 부팅되고...</span>
           </div>
         </div>
@@ -81,6 +88,32 @@ const MyPage = () => {
   );
 };
 
+const heartBeat = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.2);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
+
+const heartAnimation = css`
+  animation: ${heartBeat} 0.3s ease-in-out;
+`;
+
+const heartIconStyle = css`
+  color: red;
+`;
+
+const bookmarkIconStyle = css`
+  color: black;
+`;
 
 const pageContainerStyle = css`
   display: flex;
@@ -234,6 +267,7 @@ const iconButtonStyle = css`
 
   &:hover {
     color: #ff0000;
+    
   }
 `;
 
@@ -241,6 +275,10 @@ const productInfoFlex = css`
   display: flex;
   justify-content: space-between;
   margin-left: 2.2rem;
+`;
+
+const boldtxt = css`
+  font-weight: bold;
 `;
 
 export default MyPage;
