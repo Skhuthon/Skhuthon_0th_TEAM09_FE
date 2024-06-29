@@ -1,18 +1,11 @@
 /** @jsxImportSource @emotion/react */
-import {
-  CSSObject,
-  ComponentSelector,
-  SerializedStyles,
-  css,
-  ArrayInterpolation,
-} from "@emotion/react";
+import { css } from "@emotion/react";
 import { motion } from "framer-motion";
 import { useEffect, useState, ReactNode } from "react";
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
-import { ArrayCSSInterpolation } from "@emotion/css";
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -70,7 +63,7 @@ const Home = () => {
         <Section>
           <motion.div
             css={boxStyle}
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: "3.125em" }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}>
             <h1 css={textStyle}>Personalized product service</h1>
@@ -103,7 +96,7 @@ const Home = () => {
             <motion.div
               css={cardStyle(card.bgColor)}
               key={index}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: "3.125em" }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}>
               <div css={cardContentStyle}>
@@ -111,9 +104,7 @@ const Home = () => {
                   {card.title}{" "}
                   <span css={highlightCardStyle}>{card.highlight}</span>
                 </h3>
-                <button css={buttonStyle(card.bgColor)}>
-                  웹사이트 바로가기
-                </button>
+                <button css={buttonStyle(card.bgColor)}>웹사이트 바로가기</button>
                 <img src={card.img} alt={card.name} css={cardImageStyle} />
                 <p css={cardNameStyle(card.textColor)}>{card.name}</p>
               </div>
@@ -179,8 +170,13 @@ const commonSectionStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  padding: 2.5em;
   height: 120vh;
+  @media (max-width: 48em) {
+    flex-direction: column;
+    padding: 1.25em;
+    height: auto;
+  }
 `;
 
 const Section: React.FC<{ children: ReactNode }> = ({ children }) => (
@@ -189,7 +185,7 @@ const Section: React.FC<{ children: ReactNode }> = ({ children }) => (
 
 const sectionStyle = css`
   background-color: #f7f7f7;
-  margin: 40px 0;
+  margin: 2.5em 0;
 `;
 
 const InfoSection: React.FC<{ children: ReactNode }> = ({ children }) => (
@@ -208,8 +204,13 @@ const CardSection: React.FC<{ children: ReactNode }> = ({ children }) => (
 const cardSectionStyle = css`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
+  gap: 1.25em;
   background-color: #07070a;
+
+  @media (max-width: 48em) {
+    grid-template-columns: 1fr;
+    gap: 0.625em;
+  }
 `;
 
 const ProductPreviewSection: React.FC<{ children: ReactNode }> = ({
@@ -229,32 +230,50 @@ const productPreviewSectionStyle = css`
 const boxStyle = css`
   background: linear-gradient(180deg, #404041, #1f1f1f);
   border: none;
-  border-radius: 15px;
-  padding: 100px;
+  border-radius: 0.9375em;
+  padding: 4.26em;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 80%;
-  max-width: 800px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 50em;
+  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 48em) {
+    padding: 2.5em;
+    width: 60%;
+  }
 `;
 
 const textStyle = css`
-  font-size: 2.5rem;
+  font-size: 2.5em;
   color: #ff4500;
+
+  @media (max-width: 48em) {
+    font-size: 1.5em;
+  }
 `;
 
 const textContainerStyle = css`
-  max-width: 800px;
+  max-width: 50em;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 2.5em;
+
+  @media (max-width: 48em) {
+    margin-bottom: 1.25em;
+  }
 `;
 
 const mainTextStyle = css`
-  font-size: 2.5rem;
+  font-size: 2.5em;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 1.25em;
   text-align: left;
+
+  @media (max-width: 48em) {
+    font-size: 1.5em;
+    margin-bottom: 0.625em;
+  }
 `;
 
 const highlightTextStyle = css`
@@ -262,16 +281,25 @@ const highlightTextStyle = css`
 `;
 
 const descriptionStyle = css`
-  font-size: 1.2rem;
+  font-size: 1.2em;
   color: #aaa;
   text-align: left;
+
+  @media (max-width: 48em) {
+    font-size: 1em;
+  }
 `;
 
 const imageStyle = css`
   height: 20em;
   width: 30em;
-  border-radius: 10px;
+  border-radius: 0.625em;
   object-fit: cover;
+
+  @media (max-width: 48em) {
+    height: 15em;
+    width: 100%;
+  }
 `;
 
 const cardStyle = (
@@ -287,12 +315,16 @@ const cardStyle = (
     | undefined
 ) => css`
   background-color: ${bgColor};
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 0.625em;
+  padding: 1.25em;
   display: flex;
   flex-direction: column;
   align-items: center;
   color: ${bgColor === "#f0f0f0" ? "#000" : "#fff"};
+
+  @media (max-width: 48em) {
+    padding: 0.625em;
+  }
 `;
 
 const cardContentStyle = css`
@@ -302,10 +334,14 @@ const cardContentStyle = css`
 `;
 
 const cardTitleStyle = css`
-  font-size: 1.5rem;
+  font-size: 1.5em;
   font-weight: bold;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 0.625em;
+
+  @media (max-width: 48em) {
+    font-size: 1.2em;
+  }
 `;
 
 const highlightCardStyle = css`
@@ -316,25 +352,35 @@ const buttonStyle = (bgColor: string) => css`
   background-color: ${bgColor === "#f0f0f0" ? "#000" : "transparent"};
   color: ${bgColor === "#f0f0f0" ? "#fff" : "#000"};
   border: ${bgColor === "#f0f0f0" ? "none" : "1px solid #000"};
-  border-radius: 5px;
-  padding: 5px 10px;
+  border-radius: 0.3125em;
+  padding: 0.3125em 0.625em;
   cursor: pointer;
-  font-size: 0.8rem;
-  margin-bottom: 10px;
+  font-size: 0.8em;
+  margin-bottom: 0.625em;
   display: block;
 
   &:hover {
     background-color: ${bgColor === "#f0f0f0" ? "#ddd" : "#000"};
     color: ${bgColor === "#f0f0f0" ? "#000" : "#fff"};
   }
+
+  @media (max-width: 48em) {
+    padding: 0.3125em 0.625em;
+    font-size: 0.7em;
+  }
 `;
 
 const cardImageStyle = css`
-  width: 150px;
-  height: 200px;
-  border-radius: 10px;
+  width: 9.375em;
+  height: 12.5em;
+  border-radius: 0.625em;
   object-fit: cover;
-  margin-bottom: 10px;
+  margin-bottom: 0.625em;
+
+  @media (max-width: 48em) {
+    width: 6.25em;
+    height: 9.375em;
+  }
 `;
 
 const cardNameStyle = (
@@ -348,21 +394,30 @@ const cardNameStyle = (
     | null
     | undefined
 ) => css`
-  font-size: 1rem;
+  font-size: 1em;
   color: ${textColor};
+
+  @media (max-width: 48em) {
+    font-size: 0.8em;
+  }
 `;
 
 const productTitleStyle = css`
-  font-size: 3rem;
+  font-size: 3em;
   margin-bottom: 1.2em;
   text-align: center;
+
+  @media (max-width: 48em) {
+    font-size: 2em;
+    margin-bottom: 0.8em;
+  }
 `;
 
 const whiteBoxStyle = css`
   background-color: #fff;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  padding: 40px;
+  border-radius: 0.9375em;
+  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.2);
+  padding: 2.5em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -370,6 +425,14 @@ const whiteBoxStyle = css`
   width: 80%;
   margin: 0 auto;
   height: 30em;
+
+  @media (max-width: 48em) {
+    padding: 1.25em;
+    height: auto;
+    width:  75%;
+
+
+  }
 `;
 
 const contentContainerStyle = css`
@@ -377,6 +440,10 @@ const contentContainerStyle = css`
   align-items: center;
   justify-content: center;
   width: 100%;
+
+  @media (max-width: 48em) {
+    flex-direction: column;
+  }
 `;
 
 const centerContainerStyle = css`
@@ -384,18 +451,33 @@ const centerContainerStyle = css`
   align-items: center;
   justify-content: center;
   gap: 2em;
+
+  @media (max-width: 48em) {
+    flex-direction: column;
+    gap: 1em;
+  }
 `;
 
 const imageContainerStyle = css`
   display: flex;
   align-items: center;
   gap: 2em;
+
+  @media (max-width: 48em) {
+    gap: 1em;
+    flex-wrap: wrap;
+  }
 `;
 
 const productImageStyle = css`
-  width: 150px;
-  height: 150px;
+  width: 9.375em;
+  height: 9.375em;
   object-fit: cover;
+
+  @media (max-width: 48em) {
+    width: 5.22em;
+    height: 6.25em;
+  }
 `;
 
 const moreProductsContainerStyle = css`
@@ -405,23 +487,27 @@ const moreProductsContainerStyle = css`
 `;
 
 const moreProductsLinkStyle = css`
-  font-size: 1.5rem;
+  font-size: 1.5em;
   color: #000;
   text-decoration: none;
-  margin-bottom: 10px;
+  margin-bottom: 0.625em;
+
+  @media (max-width: 48em) {
+    font-size: 1em;
+  }
 `;
 
 const arrowCircleStyle = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 2px solid #000;
+  width: 2.5em;
+  height: 2.5em;
+  border: 0.125em solid #000;
   border-radius: 50%;
 `;
 
 const arrowIconStyle = css`
-  font-size: 1.5rem;
+  font-size: 1.5em;
   color: #000;
 `;
