@@ -7,14 +7,12 @@ export default function Login() {
   const handleLogin = async () => {
     try {
       const res = await axios.post("http://localhost:3000/api/login", {
-        username: "admin", // 예시로 하드코딩된 값
-        password: "admin", // 예시로 하드코딩된 값
+        username: "admin",
+        password: "admin",
       });
-      console.log(res.data); // 응답 데이터 콘솔 출력
-      // 로그인 성공 처리 또는 사용자 리디렉션
+      console.log(res.data);
     } catch (error) {
       console.error("로그인 중 오류 발생:", error);
-      // 오류 처리 (예: 오류 메시지 표시)
     }
   };
 
