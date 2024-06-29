@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import { FaEnvelope, FaGithub } from 'react-icons/fa';
-import React from 'react';
+import { css } from "@emotion/react";
+import { FaEnvelope, FaGithub } from "react-icons/fa";
+import React from "react";
 
 const Footer: React.FC = () => {
   return (
@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
 
@@ -37,10 +37,11 @@ const style = css`
   align-items: center;
   padding: 20px;
   font-family: Arial, sans-serif;
-  width: 100%;
+
   bottom: 0;
 
-  .left, .right {
+  .left,
+  .right {
     display: flex;
     align-items: center;
   }
@@ -53,13 +54,13 @@ const style = css`
 
   .icon-container {
     display: flex;
-    gap: 10px; 
+    gap: 10px;
   }
 
   .icon {
     width: 24px;
     height: 24px;
-    color: #fff; 
+    color: #fff;
   }
 
   .title {
@@ -76,6 +77,6 @@ const style = css`
   .credits {
     font-size: 0.9rem;
     color: #666;
-    margin-top: 10px; 
+    margin-top: 10px;
   }
 `;

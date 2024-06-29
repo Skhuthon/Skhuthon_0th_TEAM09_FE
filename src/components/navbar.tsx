@@ -1,32 +1,32 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import React, { ReactNode, FC } from 'react';
+import { css } from "@emotion/react";
+import React, { ReactNode, FC } from "react";
+import Link from "next/link";
 
 interface NavProps {
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 const Navigation: FC<NavProps> = ({ children }) => {
   return (
     <div css={nav_bodyStyles}>
       <nav css={nav_headerStyles}>
-        <div css={nav_logoStyles}>
+        <Link href="/" css={nav_logoStyles}>
           ISEUNGCHANG
-        </div>
+        </Link>
         <div css={nav_LinksStyles}>
-          <a css={nav_LinkStyles} href="#">
+          <Link href="/user/login" css={nav_LinkStyles}>
             로그인
-          </a>
+          </Link>
+
           <span css={nav_separatorStyles}>|</span>
-          <a css={nav_LinkStyles} href="#">
+          <Link href="/user/signup" css={nav_LinkStyles}>
             회원가입
-          </a>
+          </Link>
         </div>
       </nav>
 
-      <div css={nav_mainContentStyles}>
-        {children}
-      </div>
+      <div css={nav_mainContentStyles}>{children}</div>
     </div>
   );
 };
@@ -41,7 +41,7 @@ const nav_bodyStyles = css`
 
 const nav_headerStyles = css`
   width: 100%;
-  background-color: #111F4D;
+  background-color: #111f4d;
   color: white;
   display: flex;
   justify-content: space-between;
@@ -60,7 +60,9 @@ const nav_headerStyles = css`
 const nav_logoStyles = css`
   font-size: 1.5rem;
   font-weight: bold;
-  margin-right: 2rem; 
+  margin-right: 2rem;
+  text-decoration: none;
+  color: white;
 
   @media (max-width: 768px) {
     margin-right: 1rem;
@@ -69,7 +71,7 @@ const nav_logoStyles = css`
 
 const nav_LinksStyles = css`
   display: flex;
-  gap: 2rem; 
+  gap: 2rem;
   margin-right: 4rem;
 
   @media (max-width: 768px) {
@@ -82,9 +84,10 @@ const nav_LinkStyles = css`
   color: white;
   text-decoration: none;
   font-size: 1rem;
+  text-decoration-line: none;
 
   &:hover {
-    text-decoration: underline;
+    text-decoration-line: none;
   }
 
   @media (max-width: 768px) {
@@ -103,9 +106,6 @@ const nav_separatorStyles = css`
 `;
 
 const nav_mainContentStyles = css`
-  margin-top: 60px;
-  padding: 2rem;
-
   @media (max-width: 768px) {
     padding: 1rem;
   }
