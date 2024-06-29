@@ -1,12 +1,19 @@
 /** @jsxImportSource @emotion/react */
-import { CSSObject, ComponentSelector, SerializedStyles, css, ArrayInterpolation } from '@emotion/react';
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { FaArrowRight } from 'react-icons/fa';
-import Navbar from '../components/navbar';  
-import Footer from '../components/Footer';
-import { ArrayCSSInterpolation } from '@emotion/css';
+import {
+  CSSObject,
+  ComponentSelector,
+  SerializedStyles,
+  css,
+  ArrayInterpolation,
+} from "@emotion/react";
+import { motion } from "framer-motion";
+import { useEffect, useState, ReactNode } from "react";
+import Image from "next/image";
+import { FaArrowRight } from "react-icons/fa";
+import Navbar from "../components/navbar";
+import Footer from "../components/Footer";
+import { ArrayCSSInterpolation } from "@emotion/css";
+
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
@@ -23,108 +30,137 @@ const Home = () => {
   }, [slides.length]);
 
   const cards = [
-    { title: "마음에 안드시면", highlight: "100만원", img: "/images/cha.jpg", name: "IT 21 이승창", bgColor: "#f0f0f0", textColor: "#000" },
-    { title: "제 이름을 걸고", highlight: "맹세합니다", img: "/images/sunjea.webp", name: "IT 21 이승창", bgColor: "#333", textColor: "#fff" },
-    { title: "제 이름을 걸고", highlight: "맹세합니다", img: "/images/cha.jpg", name: "IT 21 이승창", bgColor: "#333", textColor: "#fff" },
-    { title: "마음에 안드시면", highlight: "100만원", img: "/images/sunjea.webp", name: "IT 21 이승창", bgColor: "#f0f0f0", textColor: "#000" },
+    {
+      title: "마음에 안드시면",
+      highlight: "100만원",
+      img: "/images/cha.jpg",
+      name: "IT 21 이승창",
+      bgColor: "#f0f0f0",
+      textColor: "#000",
+    },
+    {
+      title: "제 이름을 걸고",
+      highlight: "맹세합니다",
+      img: "/images/sunjea.webp",
+      name: "IT 21 이승창",
+      bgColor: "#333",
+      textColor: "#fff",
+    },
+    {
+      title: "제 이름을 걸고",
+      highlight: "맹세합니다",
+      img: "/images/cha.jpg",
+      name: "IT 21 이승창",
+      bgColor: "#333",
+      textColor: "#fff",
+    },
+    {
+      title: "마음에 안드시면",
+      highlight: "100만원",
+      img: "/images/sunjea.webp",
+      name: "IT 21 이승창",
+      bgColor: "#f0f0f0",
+      textColor: "#000",
+    },
   ];
-  
 
   return (
     <div css={containerStyle}>
       <Navbar>
-      <Section>
-        <motion.div
-          css={boxStyle}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <h1 css={textStyle}>Personalized product service</h1>
-        </motion.div>
-      </Section>
-
-      <InfoSection>
-        <div css={textContainerStyle}>
-          <h2 css={mainTextStyle}>
-            나에게 어울리는 물건을 찾을 수 있는 공간,
-            <span css={highlightTextStyle}> ISEUNGCHANG</span>
-          </h2>
-          <p css={descriptionStyle}>
-            ISEUNGCHANG은 재학생들의 의견을 모아 분석하고, <br></br>이를 바탕으로 고도화된 탐색 알고리즘을 사용하여
-            여러분에게 가장 필요한 물건을 추천해드립니다.
-          </p>
-        </div>
-        <div css={imageContainerStyle}>
-          <img
-            src="/images/data_science.jpg"
-            alt="데이터 분석"
-            css={imageStyle}
-          />
-        </div>
-      </InfoSection>
-
-      <CardSection>
-        {cards.map((card, index) => (
+        <Section>
           <motion.div
-            css={cardStyle(card.bgColor)}
-            key={index}
+            css={boxStyle}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div css={cardContentStyle}>
-              <h3 css={cardTitleStyle}>
-                {card.title} <span css={highlightCardStyle}>{card.highlight}</span>
-              </h3>
-              <button css={buttonStyle(card.bgColor)}>웹사이트 바로가기</button>
-              <img src={card.img} alt={card.name} css={cardImageStyle} />
-              <p css={cardNameStyle(card.textColor)}>{card.name}</p>
-            </div>
+            transition={{ duration: 0.5 }}>
+            <h1 css={textStyle}>Personalized product service</h1>
           </motion.div>
-        ))}
-      </CardSection>
+        </Section>
 
-      <ProductPreviewSection>
-        <h2 css={productTitleStyle}>상품 미리 보기</h2>
-        <div css={whiteBoxStyle}>
-          <div css={contentContainerStyle}>
-            <div css={centerContainerStyle}>
-              <div css={imageContainerStyle}>
-                <Image
-                  src="/images/canon.jpg"
-                  alt="Product 1"
-                  css={productImageStyle}
-                  width={150}
-                  height={150}
-                />
-                <Image
-                  src="/images/monitor.jpg"
-                  alt="Product 2"
-                  css={productImageStyle}
-                  width={150}
-                  height={150}
-                />
-                <Image
-                  src="/images/tablet.jpg"
-                  alt="Product 3"
-                  css={productImageStyle}
-                  width={150}
-                  height={150}
-                />
+        <InfoSection>
+          <div css={textContainerStyle}>
+            <h2 css={mainTextStyle}>
+              나에게 어울리는 물건을 찾을 수 있는 공간,
+              <span css={highlightTextStyle}> ISEUNGCHANG</span>
+            </h2>
+            <p css={descriptionStyle}>
+              ISEUNGCHANG은 재학생들의 의견을 모아 분석하고, <br></br>이를
+              바탕으로 고도화된 탐색 알고리즘을 사용하여 여러분에게 가장 필요한
+              물건을 추천해드립니다.
+            </p>
+          </div>
+          <div css={imageContainerStyle}>
+            <img
+              src="/images/data_science.jpg"
+              alt="데이터 분석"
+              css={imageStyle}
+            />
+          </div>
+        </InfoSection>
+
+        <CardSection>
+          {cards.map((card, index) => (
+            <motion.div
+              css={cardStyle(card.bgColor)}
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}>
+              <div css={cardContentStyle}>
+                <h3 css={cardTitleStyle}>
+                  {card.title}{" "}
+                  <span css={highlightCardStyle}>{card.highlight}</span>
+                </h3>
+                <button css={buttonStyle(card.bgColor)}>
+                  웹사이트 바로가기
+                </button>
+                <img src={card.img} alt={card.name} css={cardImageStyle} />
+                <p css={cardNameStyle(card.textColor)}>{card.name}</p>
               </div>
-              <div css={moreProductsContainerStyle}>
-                <a href="https://example.com" css={moreProductsLinkStyle}>
-                  상품 더 보기
-                </a>
-                <div css={arrowCircleStyle}>
-                  <FaArrowRight css={arrowIconStyle} />
+            </motion.div>
+          ))}
+        </CardSection>
+
+        <ProductPreviewSection>
+          <h2 css={productTitleStyle}>상품 미리 보기</h2>
+          <div css={whiteBoxStyle}>
+            <div css={contentContainerStyle}>
+              <div css={centerContainerStyle}>
+                <div css={imageContainerStyle}>
+                  <Image
+                    src="/images/canon.jpg"
+                    alt="Product 1"
+                    css={productImageStyle}
+                    width={150}
+                    height={150}
+                  />
+                  <Image
+                    src="/images/monitor.jpg"
+                    alt="Product 2"
+                    css={productImageStyle}
+                    width={150}
+                    height={150}
+                  />
+                  <Image
+                    src="/images/tablet.jpg"
+                    alt="Product 3"
+                    css={productImageStyle}
+                    width={150}
+                    height={150}
+                  />
+                </div>
+                <div css={moreProductsContainerStyle}>
+                  <a href="https://example.com" css={moreProductsLinkStyle}>
+                    상품 더 보기
+                  </a>
+                  <div css={arrowCircleStyle}>
+                    <FaArrowRight css={arrowIconStyle} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </ProductPreviewSection>
+        </ProductPreviewSection>
       </Navbar>
       <Footer />
     </div>
@@ -143,14 +179,12 @@ const commonSectionStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 200px 20px;
-  height: 100vh;
+  padding: 40px;
+  height: 120vh;
 `;
 
-const Section = ({ children }) => (
-  <section css={[commonSectionStyle, sectionStyle]}>
-    {children}
-  </section>
+const Section: React.FC<{ children: ReactNode }> = ({ children }) => (
+  <section css={[commonSectionStyle, sectionStyle]}>{children}</section>
 );
 
 const sectionStyle = css`
@@ -158,10 +192,8 @@ const sectionStyle = css`
   margin: 40px 0;
 `;
 
-const InfoSection = ({ children }) => (
-  <section css={[commonSectionStyle, infoSectionStyle]}>
-    {children}
-  </section>
+const InfoSection: React.FC<{ children: ReactNode }> = ({ children }) => (
+  <section css={[commonSectionStyle, infoSectionStyle]}>{children}</section>
 );
 
 const infoSectionStyle = css`
@@ -169,20 +201,20 @@ const infoSectionStyle = css`
   color: #fff;
 `;
 
-const CardSection = ({ children }) => (
-  <section css={[commonSectionStyle, cardSectionStyle]}>
-    {children}
-  </section>
+const CardSection: React.FC<{ children: ReactNode }> = ({ children }) => (
+  <section css={[commonSectionStyle, cardSectionStyle]}>{children}</section>
 );
 
 const cardSectionStyle = css`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  background-color: #07070A;
+  background-color: #07070a;
 `;
 
-const ProductPreviewSection = ({ children }) => (
+const ProductPreviewSection: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => (
   <section css={[commonSectionStyle, productPreviewSectionStyle]}>
     {children}
   </section>
@@ -236,20 +268,31 @@ const descriptionStyle = css`
 `;
 
 const imageStyle = css`
-  width: 100%;
-  height: 32em;
+  height: 20em;
+  width: 30em;
   border-radius: 10px;
   object-fit: cover;
 `;
 
-const cardStyle = (bgColor: string | number | boolean | ComponentSelector | SerializedStyles | CSSObject | ArrayCSSInterpolation | null | undefined) => css`
+const cardStyle = (
+  bgColor:
+    | string
+    | number
+    | boolean
+    | ComponentSelector
+    | SerializedStyles
+    | CSSObject
+    | ArrayCSSInterpolation
+    | null
+    | undefined
+) => css`
   background-color: ${bgColor};
   border-radius: 10px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: ${bgColor === '#f0f0f0' ? '#000' : '#fff'};
+  color: ${bgColor === "#f0f0f0" ? "#000" : "#fff"};
 `;
 
 const cardContentStyle = css`
@@ -270,9 +313,9 @@ const highlightCardStyle = css`
 `;
 
 const buttonStyle = (bgColor: string) => css`
-  background-color: ${bgColor === '#f0f0f0' ? '#000' : 'transparent'};
-  color: ${bgColor === '#f0f0f0' ? '#fff' : '#000'};
-  border: ${bgColor === '#f0f0f0' ? 'none' : '1px solid #000'};
+  background-color: ${bgColor === "#f0f0f0" ? "#000" : "transparent"};
+  color: ${bgColor === "#f0f0f0" ? "#fff" : "#000"};
+  border: ${bgColor === "#f0f0f0" ? "none" : "1px solid #000"};
   border-radius: 5px;
   padding: 5px 10px;
   cursor: pointer;
@@ -281,8 +324,8 @@ const buttonStyle = (bgColor: string) => css`
   display: block;
 
   &:hover {
-    background-color: ${bgColor === '#f0f0f0' ? '#ddd' : '#000'};
-    color: ${bgColor === '#f0f0f0' ? '#000' : '#fff'};
+    background-color: ${bgColor === "#f0f0f0" ? "#ddd" : "#000"};
+    color: ${bgColor === "#f0f0f0" ? "#000" : "#fff"};
   }
 `;
 
@@ -294,7 +337,17 @@ const cardImageStyle = css`
   margin-bottom: 10px;
 `;
 
-const cardNameStyle = (textColor: string | number | boolean | ComponentSelector | SerializedStyles | CSSObject  | null | undefined) => css`
+const cardNameStyle = (
+  textColor:
+    | string
+    | number
+    | boolean
+    | ComponentSelector
+    | SerializedStyles
+    | CSSObject
+    | null
+    | undefined
+) => css`
   font-size: 1rem;
   color: ${textColor};
 `;
