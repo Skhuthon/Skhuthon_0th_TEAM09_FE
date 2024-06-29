@@ -2,7 +2,15 @@
 import { css } from '@emotion/react';
 
 
-const UserPosts = ({ posts }: { posts: Array<{ id: number, name: string, description: string }> }) => {
+interface UserBookmarkProps {
+  posts: {
+    id: number;
+    name: string;
+    description: string;
+  }[];
+}
+
+const UserPosts = ({ posts }: UserBookmarkProps) => {
   if (!posts) {
     return null;
   }
@@ -11,7 +19,7 @@ const UserPosts = ({ posts }: { posts: Array<{ id: number, name: string, descrip
     <div css={styles.postsWrapper}>
       <h1 css={styles.pageTitle}>글제목</h1>
       <div css={styles.postsHeader}>
-        작성글 목록
+        북마크 한 글
       </div>
       {posts.map((post) => (
         <div key={post.id} css={styles.postWrapper}>
