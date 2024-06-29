@@ -298,7 +298,8 @@ const imageStyle = css`
 
   @media (max-width: 48em) {
     height: 15em;
-    width: 100%;
+    width: 80%;
+    margin: 0 auto;
   }
 `;
 
@@ -307,10 +308,6 @@ const cardStyle = (
     | string
     | number
     | boolean
-    | ComponentSelector
-    | SerializedStyles
-    | CSSObject
-    | ArrayCSSInterpolation
     | null
     | undefined
 ) => css`
@@ -388,9 +385,6 @@ const cardNameStyle = (
     | string
     | number
     | boolean
-    | ComponentSelector
-    | SerializedStyles
-    | CSSObject
     | null
     | undefined
 ) => css`
@@ -430,8 +424,6 @@ const whiteBoxStyle = css`
     padding: 1.25em;
     height: auto;
     width:  75%;
-
-
   }
 `;
 
