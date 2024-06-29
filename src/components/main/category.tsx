@@ -2,37 +2,20 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { css } from "@emotion/css";
 
-interface Category {
-  id: number;
-  name: string;
+interface CategoryProps {
+  categories: { id: number; name: string }[];
+  onCategorySelect: (categoryId: number) => void;
 }
-
-const CategoryPage: React.FC = () => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+const Category: React.FC<CategoryProps> = ({
+  categories,
+  onCategorySelect,
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<number>(1);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await axios.get("/api/categories");
-        const filteredCategories = response.data.filter(
-          (category: Category | null) => category !== null
-        );
-        setCategories(filteredCategories);
-      } catch (error) {
-        setError("Failed to fetch categories");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchCategories();
-  }, []);
-
-  if (error) return <p>{error}</p>;
-
+  const handleCategorySelect = (categoryId: number) => {
+    setSelectedCategory(categoryId);
+    onCategorySelect(categoryId);
+  };
   return (
     <div className={containerStyle}>
       {categories.length > 0 ? (
@@ -43,7 +26,7 @@ const CategoryPage: React.FC = () => {
               className={`${listItemStyle} ${
                 selectedCategory === category.id ? selectedStyle : ""
               }`}
-              onClick={() => setSelectedCategory(category.id)}>
+              onClick={() => handleCategorySelect(category.id)}>
               {category.name}
             </li>
           ))}
@@ -55,7 +38,7 @@ const CategoryPage: React.FC = () => {
   );
 };
 
-export default CategoryPage;
+export default Category;
 
 const containerStyle = css`
   display: flex;
