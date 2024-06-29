@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-
 import { css, keyframes } from '@emotion/react';
 import { useState } from 'react';
 import Image from 'next/image';
