@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { css } from "@emotion/css";
 import axios from "axios";
-
+import { useRouter } from "next/router";
 export default function signup() {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -30,8 +32,11 @@ export default function signup() {
       });
       setSuccessMessage("회원가입에 성공했습니다!");
       setErrorMessage("");
+      router.push("/user/login");
     } catch (error) {
-      setErrorMessage("회원가입에 실패했습니다. 다시 시도해주세요.");
+      setErrorMessage(
+        "서버 문제로 회원가입에 실패했습니다. 다시 시도해주세요."
+      );
     }
   };
 
@@ -143,7 +148,7 @@ const container = css`
 
   p {
     font-size: 14px;
-    color: #666;
+    color: red;
     margin-top: 20px;
   }
 `;
