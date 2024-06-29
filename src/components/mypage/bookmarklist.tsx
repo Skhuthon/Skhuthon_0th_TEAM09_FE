@@ -1,29 +1,44 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { css } from "@emotion/css";
+import axios from "axios";
 
-interface UserBookmarkProps {
-  posts: {
-    id: number;
-    name: string;
-    description: string;
-  }[];
+interface Post {
+  id: number;
+  name: string;
+  description: string;
+  url: string;
 }
 
-const UserPosts = ({ posts }: UserBookmarkProps) => {
-  if (!posts) {
-    return null;
-  }
+export default function bookmarklist() {
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get("/api/bookmarklist");
+        setPosts(response.data);
+      } catch (error) {
+        setError("Failed to fetch posts");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
   return (
     <div className={postsWrapper}>
-      <h1 className={pageTitle}>글제목</h1>
-      <div className={postsHeader}>북마크 한 글</div>
+      <div className={postsHeader}>북마크</div>
       {posts.map((post) => (
         <div key={post.id} className={postWrapper}>
           <a
             target="_blank"
             rel="noopener noreferrer"
-            href={`https://example.com/${post.name}`}
+            href={post.url}
             className={link}>
             <h2 className={postTitle}>{post.name}</h2>
           </a>
@@ -32,31 +47,12 @@ const UserPosts = ({ posts }: UserBookmarkProps) => {
       ))}
     </div>
   );
-};
-
-const posts = [
-  {
-    id: 1,
-    name: "글 제목 1",
-    description: "글 내용 1",
-  },
-  {
-    id: 2,
-    name: "글 제목 2",
-    description: "글 내용 2",
-  },
-  {
-    id: 3,
-    name: "글 제목 3",
-    description: "글 내용 3",
-  },
-];
-
-const Page = () => <UserPosts posts={posts} />;
+}
 
 const postsWrapper = css`
   border: 1px solid #e1e4e8;
-  width: 60%;
+  width: 30vw;
+  height: 50vh;
   margin: 20px auto;
   border-radius: 15px;
   overflow: auto;
@@ -118,5 +114,3 @@ const postDescriptionText = css`
   color: #555;
   padding-top: 8px;
 `;
-
-export default Page;

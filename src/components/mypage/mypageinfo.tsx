@@ -8,164 +8,63 @@ export default function Profile() {
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
 
-  useEffect(() => {
-    fetchUserInfo();
-  }, []);
-
-  const fetchUserInfo = async () => {
-    try {
-      const apiUrl = "https://dofarming.duckdns.org/api/v1/user";
-      const token = localStorage.getItem("authToken");
-
-      if (token) {
-        const response = await axios.get(apiUrl, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        const userData = response.data;
-        setNickname(userData.nickname);
-        setEmail(userData.email);
-      }
-    } catch (error) {
-      console.error("Error fetching user info:", error);
-    }
-  };
-
-  const handleNicknameChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setNickname(e.target.value);
-  };
-
-  const handleSave = async () => {
-    try {
-      const apiUrl = "https://dofarming.duckdns.org/api/v1/user/info";
-      const token = localStorage.getItem("authToken");
-
-      if (token) {
-        await axios.patch(
-          apiUrl,
-          {
-            nickname,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-
-        alert("저장되었습니다!");
-      }
-    } catch (error) {
-      console.error("Error updating user info:", error);
-      alert("저장에 실패했습니다.");
-    }
-  };
-
   return (
-    <div className={container}>
-      <div className={profileContainer}>
-        <div className={profileContent}>
-          <FaUserCircle className={profileIcon} />
-          <input
-            type="text"
-            value={nickname}
-            onChange={handleNicknameChange}
-            className={profileNickname}
-            placeholder="닉네임을 입력하세요"
-          />
-          <div className={profileEmail}>{email}</div>
-          <button className={profileSubmit} onClick={handleSave}>
-            저장하기
-          </button>
-        </div>
-      </div>
+    <div className={postsWrapper}>
+      <h1>닉네임 변경</h1>
+      <FaUserCircle className={iconStyle} />
+      <input
+        type="text"
+        placeholder="닉네임"
+        value={nickname}
+        onChange={(e) => setNickname(e.target.value)}
+      />
+      <button>변경</button>
     </div>
   );
 }
 
-const container = css`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f8f9fa;
-`;
-
-const profileContainer = css`
-  text-align: center;
-`;
-
-const profileContent = css`
-  width: 50vw;
-  margin: 0 auto;
+const postsWrapper = css`
   display: flex;
   flex-direction: column;
   align-items: center;
-`;
-
-const profileIcon = css`
-  font-size: 100px;
-  color: #262626;
-  margin-bottom: 20px;
-`;
-
-const profileNickname = css`
-  border: none;
-  background-color: #f6f6f6;
-  width: 100%;
-  max-width: 300px;
-  height: 44.5px;
-  border-radius: 15px;
-  color: #5b5b5b;
-  margin: 20px 0;
-  padding: 15px 25px;
-  font-size: 20px;
-  text-align: center;
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: #aaa;
-  }
-`;
-
-const profileEmail = css`
-  background-color: #f6f6f6;
-  width: 100%;
-  max-width: 300px;
-  height: 44.5px;
-  border-radius: 15px;
-  color: #5b5b5b;
-  margin: 10px 0;
-  padding: 15px 25px;
-  font-size: 20px;
-  text-align: center;
-  display: flex;
-  align-items: center;
   justify-content: center;
-`;
-
-const profileSubmit = css`
-  margin-top: 35px;
-  padding: 15px 0;
-  font-size: 1rem;
-  background-color: gray;
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  cursor: pointer;
-  border-radius: 50px;
-  width: 200px;
-  border: none;
-
-  &:hover {
+  border: 1px solid #e1e4e8;
+  width: 30vw;
+  height: 50vh;
+  margin: 20px auto;
+  border-radius: 15px;
+  overflow: auto;
+  padding: 16px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  input {
+    margin-top: 30px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+  }
+  button {
+    margin-top: 30px;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 300px;
+    box-sizing: border-box;
+    cursor: pointer;
     background-color: #111f4d;
     color: white;
   }
+  button:hover {
+    background-color: #113f4d;
+  }
+`;
+const iconStyle = css`
+  font-size: 100px;
+  color: #dc3412;
 `;
