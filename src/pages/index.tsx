@@ -7,16 +7,16 @@ import {
   ArrayInterpolation,
 } from "@emotion/react";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import Image from "next/image";
 import { FaArrowRight } from "react-icons/fa";
 import Navbar from "../components/navbar";
 import Footer from "../components/Footer";
 import { ArrayCSSInterpolation } from "@emotion/css";
 
-const Home: React.FC = () => {
-  const [currentSlide, setCurrentSlide] = useState<number>(0);
-  const slides: string[] = [
+const Home = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [
     "/images/canon.jpg",
     "/images/monitor.jpg",
     "/images/tablet.jpg",
@@ -66,98 +66,102 @@ const Home: React.FC = () => {
 
   return (
     <div css={containerStyle}>
-      <Section>
-        <motion.div
-          css={boxStyle}
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}>
-          <h1 css={textStyle}>Personalized product service</h1>
-        </motion.div>
-      </Section>
-
-      <InfoSection>
-        <div css={textContainerStyle}>
-          <h2 css={mainTextStyle}>
-            나에게 어울리는 물건을 찾을 수 있는 공간,
-            <span css={highlightTextStyle}> ISEUNGCHANG</span>
-          </h2>
-          <p css={descriptionStyle}>
-            ISEUNGCHANG은 재학생들의 의견을 모아 분석하고, <br />
-            이를 바탕으로 고도화된 탐색 알고리즘을 사용하여 <br />
-            여러분에게 가장 필요한 물건을 추천해드립니다.
-          </p>
-        </div>
-        <div css={imageContainerStyle}>
-          <img
-            src="/images/data_science.jpg"
-            alt="데이터 분석"
-            css={imageStyle}
-          />
-        </div>
-      </InfoSection>
-
-      <CardSection>
-        {cards.map((card, index) => (
+      <Navbar>
+        <Section>
           <motion.div
-            css={cardStyle(card.bgColor)}
-            key={index}
+            css={boxStyle}
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}>
-            <div css={cardContentStyle}>
-              <h3 css={cardTitleStyle}>
-                {card.title}
-                <span css={highlightCardStyle}>{card.highlight}</span>
-              </h3>
-              <button css={buttonStyle(card.bgColor)}>웹사이트 바로가기</button>
-              <img src={card.img} alt={card.name} css={cardImageStyle} />
-              <p css={cardNameStyle(card.textColor)}>{card.name}</p>
-            </div>
+            <h1 css={textStyle}>Personalized product service</h1>
           </motion.div>
-        ))}
-      </CardSection>
+        </Section>
 
-      <ProductPreviewSection>
-        <h2 css={productTitleStyle}>상품 미리 보기</h2>
-        <div css={whiteBoxStyle}>
-          <div css={contentContainerStyle}>
-            <div css={centerContainerStyle}>
-              <div css={imageContainerStyle}>
-                <Image
-                  src="/images/canon.jpg"
-                  alt="Product 1"
-                  css={productImageStyle}
-                  width={150}
-                  height={150}
-                />
-                <Image
-                  src="/images/monitor.jpg"
-                  alt="Product 2"
-                  css={productImageStyle}
-                  width={150}
-                  height={150}
-                />
-                <Image
-                  src="/images/tablet.jpg"
-                  alt="Product 3"
-                  css={productImageStyle}
-                  width={150}
-                  height={150}
-                />
+        <InfoSection>
+          <div css={textContainerStyle}>
+            <h2 css={mainTextStyle}>
+              나에게 어울리는 물건을 찾을 수 있는 공간,
+              <span css={highlightTextStyle}> ISEUNGCHANG</span>
+            </h2>
+            <p css={descriptionStyle}>
+              ISEUNGCHANG은 재학생들의 의견을 모아 분석하고, <br></br>이를
+              바탕으로 고도화된 탐색 알고리즘을 사용하여 여러분에게 가장 필요한
+              물건을 추천해드립니다.
+            </p>
+          </div>
+          <div css={imageContainerStyle}>
+            <img
+              src="/images/data_science.jpg"
+              alt="데이터 분석"
+              css={imageStyle}
+            />
+          </div>
+        </InfoSection>
+
+        <CardSection>
+          {cards.map((card, index) => (
+            <motion.div
+              css={cardStyle(card.bgColor)}
+              key={index}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}>
+              <div css={cardContentStyle}>
+                <h3 css={cardTitleStyle}>
+                  {card.title}{" "}
+                  <span css={highlightCardStyle}>{card.highlight}</span>
+                </h3>
+                <button css={buttonStyle(card.bgColor)}>
+                  웹사이트 바로가기
+                </button>
+                <img src={card.img} alt={card.name} css={cardImageStyle} />
+                <p css={cardNameStyle(card.textColor)}>{card.name}</p>
               </div>
-              <div css={moreProductsContainerStyle}>
-                <a href="https://example.com" css={moreProductsLinkStyle}>
-                  상품 더 보기
-                </a>
-                <div css={arrowCircleStyle}>
-                  <FaArrowRight css={arrowIconStyle} />
+            </motion.div>
+          ))}
+        </CardSection>
+
+        <ProductPreviewSection>
+          <h2 css={productTitleStyle}>상품 미리 보기</h2>
+          <div css={whiteBoxStyle}>
+            <div css={contentContainerStyle}>
+              <div css={centerContainerStyle}>
+                <div css={imageContainerStyle}>
+                  <Image
+                    src="/images/canon.jpg"
+                    alt="Product 1"
+                    css={productImageStyle}
+                    width={150}
+                    height={150}
+                  />
+                  <Image
+                    src="/images/monitor.jpg"
+                    alt="Product 2"
+                    css={productImageStyle}
+                    width={150}
+                    height={150}
+                  />
+                  <Image
+                    src="/images/tablet.jpg"
+                    alt="Product 3"
+                    css={productImageStyle}
+                    width={150}
+                    height={150}
+                  />
+                </div>
+                <div css={moreProductsContainerStyle}>
+                  <a href="https://example.com" css={moreProductsLinkStyle}>
+                    상품 더 보기
+                  </a>
+                  <div css={arrowCircleStyle}>
+                    <FaArrowRight css={arrowIconStyle} />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </ProductPreviewSection>
+        </ProductPreviewSection>
+      </Navbar>
       <Footer />
     </div>
   );
@@ -167,35 +171,37 @@ export default Home;
 
 const containerStyle = css`
   width: 100%;
-
   padding: 0;
   margin: 0;
-  background-color: #f7f7f7;
 `;
 
 const commonSectionStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 40px;
   height: 120vh;
-  padding: 0px 100px;
 `;
 
-const Section: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-  <section css={[commonSectionStyle]}>{children}</section>
+const Section: React.FC<{ children: ReactNode }> = ({ children }) => (
+  <section css={[commonSectionStyle, sectionStyle]}>{children}</section>
 );
 
-const InfoSection: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+const sectionStyle = css`
+  background-color: #f7f7f7;
+  margin: 40px 0;
+`;
+
+const InfoSection: React.FC<{ children: ReactNode }> = ({ children }) => (
   <section css={[commonSectionStyle, infoSectionStyle]}>{children}</section>
 );
 
 const infoSectionStyle = css`
-  padding: 40px;
   background-color: #1f1f1f;
   color: #fff;
 `;
 
-const CardSection: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+const CardSection: React.FC<{ children: ReactNode }> = ({ children }) => (
   <section css={[commonSectionStyle, cardSectionStyle]}>{children}</section>
 );
 
@@ -206,7 +212,7 @@ const cardSectionStyle = css`
   background-color: #07070a;
 `;
 
-const ProductPreviewSection: React.FC<{ children: React.ReactNode }> = ({
+const ProductPreviewSection: React.FC<{ children: ReactNode }> = ({
   children,
 }) => (
   <section css={[commonSectionStyle, productPreviewSectionStyle]}>
@@ -240,7 +246,6 @@ const textStyle = css`
 
 const textContainerStyle = css`
   max-width: 800px;
-  width: 100%;
   text-align: center;
   margin-bottom: 40px;
 `;
@@ -263,8 +268,8 @@ const descriptionStyle = css`
 `;
 
 const imageStyle = css`
-  width: 100%;
-  height: 32em;
+  height: 20em;
+  width: 30em;
   border-radius: 10px;
   object-fit: cover;
 `;
