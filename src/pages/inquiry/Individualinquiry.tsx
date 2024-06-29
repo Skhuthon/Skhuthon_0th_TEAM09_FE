@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, keyframes } from '@emotion/react';
 import { useState } from 'react';
+import Image from 'next/image';
 import { FaHeart, FaRegBookmark, FaBookmark, FaEdit, FaTrash, FaUser } from 'react-icons/fa';
 
 const MyPage = () => {
@@ -9,11 +10,7 @@ const MyPage = () => {
   const [bookmarked, setBookmarked] = useState(false);
 
   const handleLikeClick = () => {
-    if (liked) {
-      setLikes(likes - 1);
-    } else {
-      setLikes(likes + 1);
-    }
+    setLikes(likes + (liked ? -1 : 1));
     setLiked(!liked);
   };
 
@@ -33,8 +30,14 @@ const MyPage = () => {
           </button>
         </div>
 
-        <div css={imageStyle}>
-          <img src="path/to/image.jpg" alt="product" />
+        <div css={imageWrapperStyle}>
+          <Image
+            src="/path/to/image.jpg"
+            alt="product"
+            layout="fill"
+            objectFit="cover"
+            css={imageStyle}
+          />
         </div>
 
         <div css={profileAndPriceStyle}>
@@ -89,17 +92,11 @@ const MyPage = () => {
 };
 
 const heartBeat = keyframes`
-  0% {
+  0%, 50%, 100% {
     transform: scale(1);
   }
   25% {
     transform: scale(1.2);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1);
   }
 `;
 
@@ -129,7 +126,7 @@ const cardStyle = css`
   width: 100%;
   max-width: 800px;
   margin: 4em 0;
-  padding: 20px 0 0px 0px;
+  padding: 20px 0;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
@@ -164,6 +161,15 @@ const buttonStyle = css`
   & svg {
     margin-right: 5px;
   }
+`;
+
+const imageWrapperStyle = css`
+  width: 70%;
+  height: 45vh;
+  position: relative;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  margin: 0 auto;
 `;
 
 const profileAndPriceStyle = css`
@@ -249,11 +255,7 @@ const commentTextStyle = css`
 `;
 
 const imageStyle = css`
-  width: 70%;
-  height: 45vh;
-  border: 1px solid lightgray;
   border-radius: 10px;
-  margin: 0 auto;
 `;
 
 const iconButtonStyle = css`
@@ -267,7 +269,6 @@ const iconButtonStyle = css`
 
   &:hover {
     color: #ff0000;
-    
   }
 `;
 
