@@ -1,20 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import { css } from "@emotion/css";
 import axios from "axios";
-import Image from "next/image";
 
 export default function signup() {
-  const handleLogin = async () => {};
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const handleSignup = async () => {
+    if (!email || !password || !confirmPassword || !nickname) {
+      setErrorMessage("모든 필수 입력 항목을 입력해주세요.");
+      return;
+    }
+    if (!validateEmail(email)) {
+      setErrorMessage("유효한 이메일 주소를 입력해주세요.");
+      return;
+    }
+    if (password !== confirmPassword) {
+      setErrorMessage("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    try {
+      const response = await axios.post("http://localhost:3000/api/signup", {
+        email,
+        password,
+        nickname,
+      });
+      setSuccessMessage("회원가입에 성공했습니다!");
+      setErrorMessage("");
+    } catch (error) {
+      setErrorMessage("회원가입에 실패했습니다. 다시 시도해주세요.");
+    }
+  };
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   return (
     <div className={container}>
       <div className="wallpaper">
         <h1>ISEUNGCHANG</h1>
-        <input type="text" placeholder="이메일" />
-        <input type="password" placeholder="비밀번호" />
-        <input type="password" placeholder="비밀번호 확인" />
-        <input type="text" placeholder="닉네임" />
-        <button onClick={handleLogin}>로그인</button>
+        <input
+          type="text"
+          placeholder="이메일"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="비밀번호"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="비밀번호 확인"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <input
+          type="text"
+          placeholder="닉네임"
+          value={nickname}
+          onChange={(e) => setNickname(e.target.value)}
+        />
+        {errorMessage && <p className="error">{errorMessage}</p>}
+        {successMessage && <p className="success">{successMessage}</p>}
+        <button onClick={handleSignup}>회원가입</button>
       </div>
     </div>
   );
@@ -85,56 +141,9 @@ const container = css`
     background-color: #113f4d;
   }
 
-  .or {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    margin-top: 20px;
-  }
-
-  .or-hr {
-    flex-grow: 1;
-    height: 1px;
-    background-color: #ccc;
-    border: none;
-    margin: 0 10px;
-  }
-
-  .or p {
-    font-size: 14px;
-    color: #666;
-  }
-
-  .socialButtons {
-    display: flex;
-    gap: 20px;
-    margin-top: 10px;
-  }
-
-  .socialButtons a {
-    display: block;
-    border-radius: 50%;
-    overflow: hidden;
-    transition: transform 0.2s ease;
-  }
-
-  .socialButtons a:hover {
-    transform: scale(1.1);
-  }
-
   p {
     font-size: 14px;
     color: #666;
     margin-top: 20px;
   }
-`;
-
-const checkboxLabel = css`
-  text-align: left;
-`;
-
-const socialButtons = css`
-  display: flex;
-  gap: 50px;
-  margin-top: 10px;
 `;
