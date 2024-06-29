@@ -1,286 +1,423 @@
 /** @jsxImportSource @emotion/react */
+import {
+  CSSObject,
+  ComponentSelector,
+  SerializedStyles,
+  css,
+  ArrayInterpolation,
+} from "@emotion/react";
+import { motion } from "framer-motion";
+import { useEffect, useState, ReactNode } from "react";
+import Image from "next/image";
+import { FaArrowRight } from "react-icons/fa";
+import Footer from "../components/Footer";
+import { ArrayCSSInterpolation } from "@emotion/css";
+import Link from "next/link";
+const Home = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slides = [
+    "/images/canon.jpg",
+    "/images/monitor.jpg",
+    "/images/tablet.jpg",
+  ];
 
-import { css, keyframes } from '@emotion/react';
-import { useState } from 'react';
-import Image from 'next/image';
-import { FaHeart, FaRegBookmark, FaBookmark, FaEdit, FaTrash, FaUser } from 'react-icons/fa';
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [slides.length]);
 
-const MyPage = () => {
-  const [likes, setLikes] = useState(0);
-  const [liked, setLiked] = useState(false);
-  const [bookmarked, setBookmarked] = useState(false);
-
-  const handleLikeClick = () => {
-    setLikes(likes + (liked ? -1 : 1));
-    setLiked(!liked);
-  };
-
-  const handleBookmarkClick = () => {
-    setBookmarked(!bookmarked);
-  };
+  const cards = [
+    {
+      title: "마음에 안드시면",
+      highlight: "100만원",
+      img: "/images/cha.jpg",
+      name: "IT 21 이승창",
+      bgColor: "#f0f0f0",
+      textColor: "#000",
+    },
+    {
+      title: "제 이름을 걸고",
+      highlight: "맹세합니다",
+      img: "/images/sunjea.webp",
+      name: "IT 21 이승창",
+      bgColor: "#333",
+      textColor: "#fff",
+    },
+    {
+      title: "제 이름을 걸고",
+      highlight: "맹세합니다",
+      img: "/images/cha.jpg",
+      name: "IT 21 이승창",
+      bgColor: "#333",
+      textColor: "#fff",
+    },
+    {
+      title: "마음에 안드시면",
+      highlight: "100만원",
+      img: "/images/sunjea.webp",
+      name: "IT 21 이승창",
+      bgColor: "#f0f0f0",
+      textColor: "#000",
+    },
+  ];
 
   return (
-    <div css={pageContainerStyle}>
-      <div css={cardStyle}>
-        <div css={headerStyle}>
-          <button css={buttonStyle}>
-            <FaEdit /> 수정
-          </button>
-          <button css={buttonStyle}>
-            <FaTrash /> 삭제
-          </button>
-        </div>
+    <div css={containerStyle}>
+      <Section>
+        <motion.div
+          css={boxStyle}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}>
+          <h1 css={textStyle}>Personalized product service</h1>
+        </motion.div>
+      </Section>
 
-        <div css={imageWrapperStyle}>
-          <Image
-            src="/path/to/image.jpg"
-            alt="product"
-            layout="fill"
-            objectFit="cover"
+      <InfoSection>
+        <div css={textContainerStyle}>
+          <h2 css={mainTextStyle}>
+            나에게 어울리는 물건을 찾을 수 있는 공간,
+            <span css={highlightTextStyle}> ISEUNGCHANG</span>
+          </h2>
+          <p css={descriptionStyle}>
+            ISEUNGCHANG은 재학생들의 의견을 모아 분석하고, <br></br>이를
+            바탕으로 고도화된 탐색 알고리즘을 사용하여 여러분에게 가장 필요한
+            물건을 추천해드립니다.
+          </p>
+        </div>
+        <div css={imageContainerStyle}>
+          <img
+            src="/images/data_science.jpg"
+            alt="데이터 분석"
             css={imageStyle}
           />
         </div>
+      </InfoSection>
 
-        <div css={profileAndPriceStyle}>
-          <div css={profileStyle}>
-            <div css={profileIconStyle}>
-              <FaUser />
+      <CardSection>
+        {cards.map((card, index) => (
+          <motion.div
+            css={cardStyle(card.bgColor)}
+            key={index}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}>
+            <div css={cardContentStyle}>
+              <h3 css={cardTitleStyle}>
+                {card.title}{" "}
+                <span css={highlightCardStyle}>{card.highlight}</span>
+              </h3>
+              <button css={buttonStyle(card.bgColor)}>웹사이트 바로가기</button>
+              <img src={card.img} alt={card.name} css={cardImageStyle} />
+              <p css={cardNameStyle(card.textColor)}>{card.name}</p>
             </div>
-            <span>user1</span>
-          </div>
-          <div css={boldtxt}>1,100,000₩</div>
-        </div>
+          </motion.div>
+        ))}
+      </CardSection>
 
-        <div css={horizontalLineStyle}></div>
-
-        <div css={tagStyle}>
-          <div css={tagItemStyle}>#회색</div>
-          <div css={tagItemStyle}>#디지털/가전</div>
-        </div>
-
-        <div css={productInfoFlex}>
-          <p>좋은 성능을 가진 노트북입니다.</p>
-        </div>
-
-        <div css={footerStyle}>
-          <div>
-            <button css={[iconButtonStyle, liked && heartAnimation]} onClick={handleLikeClick}>
-              <FaHeart css={liked && heartIconStyle} /> {likes}
-            </button>
-            <button css={iconButtonStyle} onClick={handleBookmarkClick}>
-              {bookmarked ? <FaBookmark css={bookmarkIconStyle} /> : <FaRegBookmark />} {bookmarked ? '1' : '0'}
-            </button>
+      <ProductPreviewSection>
+        <h2 css={productTitleStyle}>상품 미리 보기</h2>
+        <div css={whiteBoxStyle}>
+          <div css={contentContainerStyle}>
+            <div css={centerContainerStyle}>
+              <div css={imageContainerStyle}>
+                <Image
+                  src="/images/canon.jpg"
+                  alt="Product 1"
+                  css={productImageStyle}
+                  width={150}
+                  height={150}
+                />
+                <Image
+                  src="/images/monitor.jpg"
+                  alt="Product 2"
+                  css={productImageStyle}
+                  width={150}
+                  height={150}
+                />
+                <Image
+                  src="/images/tablet.jpg"
+                  alt="Product 3"
+                  css={productImageStyle}
+                  width={150}
+                  height={150}
+                />
+              </div>
+              <div css={moreProductsContainerStyle}>
+                <Link href="/main" css={moreProductsLinkStyle}>
+                  상품 더 보기
+                  <div css={arrowCircleStyle}>
+                    <FaArrowRight css={arrowIconStyle} />
+                  </div>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
+      </ProductPreviewSection>
 
-        <div css={commentSectionStyle}>
-          <div css={commentStyle}>
-            <span css={commentUserStyle}>woogym</span>
-            <span css={commentTextStyle}>M1 칩은 Apple이 설계한 ARM 아키텍처 기반의 SoC...</span>
-          </div>
-          <div css={commentStyle}>
-            <span css={commentUserStyle}>jjekrrq</span>
-            <span css={commentTextStyle}>M1 칩은 통합 메모리 아키텍처를 사용하여...</span>
-          </div>
-          <div css={commentStyle}>
-            <span css={commentUserStyle}>Ppueeng</span>
-            <span css={commentTextStyle}>M1 칩을 탑재한 Mac은 빠르게 부팅되고...</span>
-          </div>
-        </div>
-      </div>
+      <Footer />
     </div>
   );
 };
 
-const heartBeat = keyframes`
-  0%, 50%, 100% {
-    transform: scale(1);
-  }
-  25% {
-    transform: scale(1.2);
-  }
-`;
+export default Home;
 
-const heartAnimation = css`
-  animation: ${heartBeat} 0.3s ease-in-out;
-`;
-
-const heartIconStyle = css`
-  color: red;
-`;
-
-const bookmarkIconStyle = css`
-  color: black;
-`;
-
-const pageContainerStyle = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-`;
-
-const cardStyle = css`
-  background-color: #ffffff;
+const containerStyle = css`
   width: 100%;
-  max-width: 800px;
-  margin: 4em 0;
-  padding: 20px 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  margin: 0;
 `;
 
-const headerStyle = css`
+const commonSectionStyle = css`
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-bottom: 10px;
-  padding-right: 20px;
-`;
-
-const buttonStyle = css`
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 8px 12px;
-  margin-left: 10px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  color: #333;
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    background-color: #f0f0f0;
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  & svg {
-    margin-right: 5px;
-  }
-`;
-
-const imageWrapperStyle = css`
-  width: 70%;
-  height: 45vh;
-  position: relative;
-  border: 1px solid lightgray;
-  border-radius: 10px;
-  margin: 0 auto;
-`;
-
-const profileAndPriceStyle = css`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 4vh;
-  padding: 0px 2.2rem;
-`;
-
-const profileStyle = css`
-  display: flex;
-  align-items: center;
-`;
-
-const profileIconStyle = css`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #333;
-  display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  padding: 40px;
+  height: 120vh;
+`;
+
+const Section: React.FC<{ children: ReactNode }> = ({ children }) => (
+  <section css={[commonSectionStyle, sectionStyle]}>{children}</section>
+);
+
+const sectionStyle = css`
+  background-color: #f7f7f7;
+  margin: 40px 0;
+`;
+
+const InfoSection: React.FC<{ children: ReactNode }> = ({ children }) => (
+  <section css={[commonSectionStyle, infoSectionStyle]}>{children}</section>
+);
+
+const infoSectionStyle = css`
+  background-color: #1f1f1f;
   color: #fff;
-  margin-right: 10px;
 `;
 
-const horizontalLineStyle = css`
-  width: 100%;
-  height: 1px;
+const CardSection: React.FC<{ children: ReactNode }> = ({ children }) => (
+  <section css={[commonSectionStyle, cardSectionStyle]}>{children}</section>
+);
+
+const cardSectionStyle = css`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  background-color: #07070a;
+`;
+
+const ProductPreviewSection: React.FC<{ children: ReactNode }> = ({
+  children,
+}) => (
+  <section css={[commonSectionStyle, productPreviewSectionStyle]}>
+    {children}
+  </section>
+);
+
+const productPreviewSectionStyle = css`
   background-color: #e0e0e0;
-  margin: 10px 0;
+  text-align: center;
+  flex-direction: column;
 `;
 
-const tagStyle = css`
+const boxStyle = css`
+  background: linear-gradient(180deg, #404041, #1f1f1f);
+  border: none;
+  border-radius: 15px;
+  padding: 100px;
   display: flex;
-  margin-top: 10px;
-  padding: 0 2em;
-`;
-
-const tagItemStyle = css`
-  background-color: #ddd;
-  color: #333;
-  padding: 5px 10px;
-  border-radius: 20px;
-  margin-right: 10px;
-  font-size: 0.9rem;
-`;
-
-const footerStyle = css`
-  display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-left: 2em;
+  width: 80%;
+  max-width: 800px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
 
-const commentSectionStyle = css`
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 10px;
+const textStyle = css`
+  font-size: 2.5rem;
+  color: #ff4500;
 `;
 
-const commentStyle = css`
-  display: flex;
-  align-items: center;
-  padding: 10px 0;
-  border-bottom: 1px solid #e1e1e1;
-
-  &:last-of-type {
-    border-bottom: none;
-  }
+const textContainerStyle = css`
+  max-width: 800px;
+  text-align: center;
+  margin-bottom: 40px;
 `;
 
-const commentUserStyle = css`
+const mainTextStyle = css`
+  font-size: 2.5rem;
   font-weight: bold;
-  margin-right: 10px;
+  margin-bottom: 20px;
+  text-align: left;
 `;
 
-const commentTextStyle = css`
-  flex: 1;
+const highlightTextStyle = css`
+  color: #ffd700;
+`;
+
+const descriptionStyle = css`
+  font-size: 1.2rem;
+  color: #aaa;
+  text-align: left;
 `;
 
 const imageStyle = css`
+  height: 20em;
+  width: 30em;
   border-radius: 10px;
+  object-fit: cover;
 `;
 
-const iconButtonStyle = css`
-  background: none;
-  border: none;
-  cursor: pointer;
-  display: inline-flex;
+const cardStyle = (
+  bgColor:
+    | string
+    | number
+    | boolean
+    | ComponentSelector
+    | SerializedStyles
+    | CSSObject
+    | ArrayCSSInterpolation
+    | null
+    | undefined
+) => css`
+  background-color: ${bgColor};
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-right: 10px;
-  color: #000;
+  color: ${bgColor === "#f0f0f0" ? "#000" : "#fff"};
+`;
+
+const cardContentStyle = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const cardTitleStyle = css`
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+`;
+
+const highlightCardStyle = css`
+  color: #ff4500;
+`;
+
+const buttonStyle = (bgColor: string) => css`
+  background-color: ${bgColor === "#f0f0f0" ? "#000" : "transparent"};
+  color: ${bgColor === "#f0f0f0" ? "#fff" : "#000"};
+  border: ${bgColor === "#f0f0f0" ? "none" : "1px solid #000"};
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  display: block;
 
   &:hover {
-    color: #ff0000;
+    background-color: ${bgColor === "#f0f0f0" ? "#ddd" : "#000"};
+    color: ${bgColor === "#f0f0f0" ? "#000" : "#fff"};
   }
 `;
 
-const productInfoFlex = css`
+const cardImageStyle = css`
+  width: 150px;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+  margin-bottom: 10px;
+`;
+
+const cardNameStyle = (
+  textColor:
+    | string
+    | number
+    | boolean
+    | ComponentSelector
+    | SerializedStyles
+    | CSSObject
+    | null
+    | undefined
+) => css`
+  font-size: 1rem;
+  color: ${textColor};
+`;
+
+const productTitleStyle = css`
+  font-size: 3rem;
+  margin-bottom: 1.2em;
+  text-align: center;
+`;
+
+const whiteBoxStyle = css`
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 40px;
   display: flex;
-  justify-content: space-between;
-  margin-left: 2.2rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  margin: 0 auto;
+  height: 30em;
 `;
 
-const boldtxt = css`
-  font-weight: bold;
+const contentContainerStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 `;
 
-export default MyPage;
+const centerContainerStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
+`;
+
+const imageContainerStyle = css`
+  display: flex;
+  align-items: center;
+  gap: 2em;
+`;
+
+const productImageStyle = css`
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+`;
+
+const moreProductsContainerStyle = css`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const moreProductsLinkStyle = css`
+  font-size: 1.5rem;
+  color: #000;
+  text-decoration: none;
+  margin-bottom: 10px;
+`;
+
+const arrowCircleStyle = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid #000;
+  border-radius: 50%;
+`;
+
+const arrowIconStyle = css`
+  font-size: 1.5rem;
+  color: #000;
+`;
