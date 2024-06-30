@@ -1,4 +1,4 @@
-*학부생 상품추천 서비스
+# 학부생 상품추천 서비스
 
 [소개 바로가기](https://skhuthon-git-fork-skhuthon-main-leehueengs-projects.vercel.app)
 [서비스 이용 바로가기
