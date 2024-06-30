@@ -94,14 +94,9 @@ const Home = () => {
       <CardSection>
         {cards.map((card, index) => (
           <motion.div
-
-            css={boxStyle}
-            initial={{ opacity: 0, y: "3.125em" }}
-
             css={cardStyle(card.bgColor)}
             key={index}
-            initial={{ opacity: 0, y: 50 }}
-
+            initial={{ opacity: 0, y: "3.125em" }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}>
             <div css={cardContentStyle}>
@@ -114,46 +109,6 @@ const Home = () => {
               <p css={cardNameStyle(card.textColor)}>{card.name}</p>
             </div>
           </motion.div>
-
-        </Section>
-
-        <InfoSection>
-          <div css={textContainerStyle}>
-            <h2 css={mainTextStyle}>
-              나에게 어울리는 물건을 찾을 수 있는 공간,
-              <span css={highlightTextStyle}> ISEUNGCHANG</span>
-            </h2>
-            <p css={descriptionStyle}>
-              ISEUNGCHANG은 재학생들의 의견을 모아 분석하고, <br></br>이를
-              바탕으로 고도화된 탐색 알고리즘을 사용하여 여러분에게 가장 필요한
-              물건을 추천해드립니다.
-            </p>
-          </div>
-          <div css={imageContainerStyle}>
-            <img
-              src="/images/data_science.jpg"
-              alt="데이터 분석"
-              css={imageStyle}
-            />
-          </div>
-        </InfoSection>
-
-        <CardSection>
-          {cards.map((card, index) => (
-            <motion.div
-              css={cardStyle(card.bgColor)}
-              key={index}
-              initial={{ opacity: 0, y: "3.125em" }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}>
-              <div css={cardContentStyle}>
-                <h3 css={cardTitleStyle}>
-                  {card.title}{" "}
-                  <span css={highlightCardStyle}>{card.highlight}</span>
-                </h3>
-                <button css={buttonStyle(card.bgColor)}>웹사이트 바로가기</button>
-                <img src={card.img} alt={card.name} css={cardImageStyle} />
-                <p css={cardNameStyle(card.textColor)}>{card.name}</p>
         ))}
       </CardSection>
 
@@ -184,7 +139,6 @@ const Home = () => {
                   width={150}
                   height={150}
                 />
-
               </div>
               <div css={moreProductsContainerStyle}>
                 <Link href="/main" css={moreProductsLinkStyle}>
@@ -350,12 +304,7 @@ const imageStyle = css`
 `;
 
 const cardStyle = (
-  bgColor:
-    | string
-    | number
-    | boolean
-    | null
-    | undefined
+  bgColor: string | number | boolean | null | undefined
 ) => css`
   background-color: ${bgColor};
   border-radius: 0.625em;
@@ -427,12 +376,7 @@ const cardImageStyle = css`
 `;
 
 const cardNameStyle = (
-  textColor:
-    | string
-    | number
-    | boolean
-    | null
-    | undefined
+  textColor: string | number | boolean | null | undefined
 ) => css`
   font-size: 1em;
   color: ${textColor};
@@ -469,7 +413,7 @@ const whiteBoxStyle = css`
   @media (max-width: 48em) {
     padding: 1.25em;
     height: auto;
-    width:  75%;
+    width: 75%;
   }
 `;
 

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { css } from "@emotion/css";
+import { useRouter } from "next/router";
+
 import Image from "next/image";
 import Category from "@/components/main/category";
 import Categorization from "@/components/main/categorization";
@@ -27,6 +29,14 @@ export default function Main() {
   const [error, setError] = useState<string | null>(null);
   const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const router = useRouter();
+
+  const handleScroll = () => {
+    const button = document.getElementById("floatingButton");
+    if (button) {
+      button.style.top = `${window.scrollY + window.innerHeight - 100}px`;
+    }
+  };
 
   const handleCategorySelect = (categoryId: number) => {
     setSelectedCategory(categoryId);
@@ -104,6 +114,12 @@ export default function Main() {
           />
         ))}
       </div>
+      <button
+        id="floatingButton"
+        className={floatingButton}
+        onClick={() => router.push("/writ")}>
+        <span className={plusIcon}>+</span>
+      </button>
     </div>
   );
 }
@@ -151,4 +167,34 @@ const boardContainer = css`
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
+`;
+const floatingButton = css`
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  font-size: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
+const plusIcon = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 36px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
 `;

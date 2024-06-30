@@ -1,9 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
-import React, { ReactNode,useEffect, FC ,useState} from "react";
+import React, { ReactNode, useEffect, FC, useState } from "react";
 import Link from "next/link";
 import { FaUserCircle } from "react-icons/fa";
-
 
 interface NavProps {
   children?: ReactNode;
@@ -11,15 +10,15 @@ interface NavProps {
 
 const Navigation: FC<NavProps> = ({ children }) => {
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
-    setAccessToken(null); // accessToken을 초기화
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    setAccessToken(null);
   };
-  const [accessToken, setAccessToken] = useState("");
+  const [accessToken, setAccessToken] = useState<string | null>("");
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken") as string;
     setAccessToken(accessToken);
-      }, []);
+  }, []);
 
   return (
     <div css={nav_bodyStyles}>
@@ -28,21 +27,25 @@ const Navigation: FC<NavProps> = ({ children }) => {
           ISEUNGCHANG
         </Link>
 
-        
         <div css={nav_LinksStyles}>
-        {accessToken ? <>
-        <div css={logout} onClick={handleLogout}><FaUserCircle css={iconStyle} /><span>이현우</span></div> </>
- : (
-  <>
-    <Link href="/user/login" css={nav_LinkStyles}>
-      로그인
-    </Link>
-    <span css={nav_separatorStyles}>|</span>
-    <Link href="/user/signup" css={nav_LinkStyles}>
-      회원가입
-    </Link>
-  </>
-)}
+          {accessToken ? (
+            <>
+              <div css={logout} onClick={handleLogout}>
+                <FaUserCircle css={iconStyle} />
+                <span>이현우</span>
+              </div>{" "}
+            </>
+          ) : (
+            <>
+              <Link href="/user/login" css={nav_LinkStyles}>
+                로그인
+              </Link>
+              <span css={nav_separatorStyles}>|</span>
+              <Link href="/user/signup" css={nav_LinkStyles}>
+                회원가입
+              </Link>
+            </>
+          )}
         </div>
       </nav>
 
@@ -135,11 +138,9 @@ const iconStyle = css`
   font-size: 30px;
   color: #dc3412;
 `;
-const logout =css`
-display :flex;
-gap:30px;
-justify-content: center;
-align-items: center;
-  
-
-`
+const logout = css`
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+`;
